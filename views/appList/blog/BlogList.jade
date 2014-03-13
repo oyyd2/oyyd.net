@@ -1,0 +1,13 @@
+doctype html
+head
+    include BlogHead
+    script(src='/js/blog/BlogList.js')
+body(ng-app='BlogList',ng-controller='BlogListCtrl')
+    div.container
+        div(ng-repeat='blog in blogs')
+            .col-md-6
+                a(href='/appList/blog/{{blog.postId}}') {{blog.title}}
+            .col-md-2
+                {{blog.type}}
+            .col-md-4
+                {{blog.uploadTime}}

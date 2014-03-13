@@ -1,0 +1,16 @@
+doctype html
+head
+    //script(src='/js/lib/jquery-1.10.2.min.js')
+    script(src='/js/lib/angular.min.js')
+    script(src='/js/angular/TodoList.js')
+    link(href='/static/css/bootstrap/bootstrap.min.css',rel='stylesheet')
+html
+    body
+        div(ng-app='TodoList',ng-controller='todoListCtrl')
+            h1 Todos
+            input(ng-model='editedItem',type='text',placeholder='What needs to be done?',ng-keydown='addItem($event)')
+            input(type='checkbox',item-count,ng-model='isAllChecked',ng-change='toggleAll()')
+            div(ng-repeat='item in items')
+                input(type='checkbox',ng-model='item.isChecked',ng-change='checkAllChecked(item.isChecked)')
+                span {{item.content}}
+                button(type='button') x

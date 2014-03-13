@@ -1,0 +1,17 @@
+doctype html
+html
+    include ../../snippet/head
+    link(rel='stylesheet',href='/static/css/MarkdownEditor.css')
+
+    body
+        include template/MarkdownEditor
+        script(src='/js/lib/js-deflate/base64.js')
+        script(src='/js/lib/js-deflate/rawinflate.js')
+        script(src='/js/lib/js-deflate/rawdeflate.js')
+        script(src='/js/lib/marked.js')
+        script(src='/js/lib/codemirror/codemirror.js')
+        script(src='/js/lib/codemirror/mode/markdown/markdown.js')
+        script(src='/js/lib/highlight/highlight.pack.js')
+        script(src='/js/view/appList/MarkdownEditor/MarkdownEditor.js')
+        script(src='/js/model/appList/MarkdownEditor/MarkdownEditorModel.js')
+        script(src='/js/controller/appList/MarkdownEditor/MarkdownEditorCtr.js')

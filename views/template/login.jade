@@ -1,0 +1,17 @@
+template.login
+    div.container
+        div.row
+            div.col-md-4.col-md-offset-4
+                div.panel.panel-default.marginTop100
+                    div.panel-heading
+                        h3.panel-title Login
+                    div.panel-body
+                        form(role='form')
+                        fieldset
+                            div.form-group
+                                input.password.form-control(placeholder='Password',type='password')
+                            div.checkbox
+                                label
+                                    |Remember me
+                                    input.rememberPassword(name='remember',type='checkbox')
+                            input.loginBtn.btn.btn-lg.btn-success.btn-block(type='submit', value='Login')
