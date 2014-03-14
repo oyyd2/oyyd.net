@@ -12,5 +12,13 @@ var token = null,
             token = null;
         },clearTime*1000*60);
     };
-
+loginToken.check = function(cookieToken){
+    if(!!!token){
+        return false;
+    }else if(token!==cookieToken){
+        return false;
+    }else{
+        return true;
+    }
+};
 setClearToken.clearTimeId = null;

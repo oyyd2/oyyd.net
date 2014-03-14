@@ -20,6 +20,7 @@ var MarkdownEditor = Backbone.View.extend({
     className:'MarkdownEditor',
     cm:null,
     $preview:null,
+    welcomContent:"#**MarkdownEditor**---Note:This application isn't my original application because my idea of imprement of the application is copied from some else(feel shamed that I can't find his web page now). Ofcourse I just used what he used and finished rest work by myself.这是一个简单的Markdown编辑器，用来为我自己的网站在发布blog或其他文本编辑内容时的使用。",
     languageOverrides:{
         js: 'javascript',
         html: 'xml'
@@ -36,7 +37,7 @@ var MarkdownEditor = Backbone.View.extend({
         console.log(this.unescapeHtml($('template.toolItem').html()));
         this.tooltipTemp = _.template(this.unescapeHtml($('template.toolItem').html()));//Written here because
                                                                                         // the unescapeHtml function is
-                                                                                        // a local function.
+                                                                                        // a local function.                                                                                            
     },
     render:function(){
         this.$el.html(this.template());
@@ -47,7 +48,7 @@ var MarkdownEditor = Backbone.View.extend({
         var items = this.configuration.toolList.items,
             item = null,
             $item = null,
-            $tooltip = null
+            $tooltip = null;
         for(var index in items){
             item = items[index];
             $item = $(this.tooltipTemp({iconClass:item.iconClass,meanClass:item.class,content:item.title}));
@@ -67,7 +68,7 @@ var MarkdownEditor = Backbone.View.extend({
             resizeHandle = function(){
                 that.$el.css('height',$(window).height());
                 that.getCM().setSize('100%','100%');
-            }
+            };
         resizeHandle();
         $(window).resize(function(){
             resizeHandle();
@@ -87,9 +88,11 @@ var MarkdownEditor = Backbone.View.extend({
             that = this;
         cm = CodeMirror(this.$('.markdownTextarea')[0], {
             mode:'markdown',
+            value:that.welcomContent,
             lineNumbers: true,
             lineWrapping: true
         });
+        that.updatePreview(cm.getValue());
         cm.on('change',function(obj,changeObj){
             that.updatePreview(obj.getValue());
         });
@@ -98,7 +101,7 @@ var MarkdownEditor = Backbone.View.extend({
     initAutoSave:function(){//TODO: need a better way to remember text.
         if(!this.cm){
             return ;
-        }
+        } 
 
         var time = 7*24*60*60*1000,
         cm = this.cm,

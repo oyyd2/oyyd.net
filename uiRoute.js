@@ -21,4 +21,8 @@ var uiRoute = module.exports = function(app){
     app.get('/appList/blog/:id',function(req,res,next){
         require('./api/blog/blogDetail')(req,res,next);
     });
+//    TodoList
+    app.get('/appList/TodoList',function(req,res,next){
+        res.render('./appList/todo/todoList.jade');
+    });
 };

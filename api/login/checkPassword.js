@@ -17,7 +17,7 @@ var checkPassword = module.exports = function(req,res,next){
     });
 },
     generateToken = function(){
-        md5 = crypto.createHash('md5')
+        md5 = crypto.createHash('md5');
         md5.update('holic'+Math.ceil(Math.random()*10000));
         return md5.digest('hex');
     };

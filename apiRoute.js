@@ -11,4 +11,14 @@ var apiRoute = module.exports = function(app){
     app.get('/blog/getList',function(req,res,next){
         require('./api/blog/getList')(req,res,next);
     });
+    // todo
+    app.get('/todo/getList',function(req,res,next){
+        require('./api/todo/getTodos')(req,res,next);
+    });
+    app.get('/todo/addTodo',function(req,res,next){
+        require('./api/todo/addTodo')(req,res,next);
+    });
+    app.get('/todo/checkoutTodo',function(req,res,next){
+        require('./api/todo/checkoutTodo')(req,res,next);
+    });
 };

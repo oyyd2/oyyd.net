@@ -2,7 +2,8 @@ var
     connectOption = { //developing environment
         host:'localhost',
         user:'root',
-        password:''
+        password:'',
+        dateStrings:true
     },
 //    connectOption = { //working environment
 //        host:'115.28.142.25',
@@ -42,10 +43,14 @@ mysqlWrap.escapeStr = function (str) {
             // and double/single quotes
         }
     });
-}
+};
 
 mysqlWrap.getDateTime = function(timeStamp){
     var date = new Date();
     date.setTime(timeStamp);
     return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
-}
+};
+mysqlWrap.getCurrentDateTime = function(){
+    var data = new Date();
+    return mysqlWrap.getDateTime(data.getTime());
+};
