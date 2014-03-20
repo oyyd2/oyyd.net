@@ -5,11 +5,12 @@ var
     //     password:'',
     //     dateStrings:true
     // },
-   connectOption = { //working environment
-       host:'115.28.142.25',
-       user:'root',
-       password:'holic'
-   },
+    connectOption = { //working environment
+        host:'localhost',
+        user:'root',
+        password:'holic',
+        dateStrings:true
+    },
     mysql  = require('mysql');
 
 var mysqlWrap = module.exports = function(callback){
