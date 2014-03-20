@@ -20,10 +20,11 @@ var MarkdownEditor = Backbone.View.extend({
     className:'MarkdownEditor',
     cm:null,
     $preview:null,
-    welcomContent:"#**MarkdownEditor**---Note:This application isn't my original application because my idea of imprement of the application is copied from some else(feel shamed that I can't find his web page now). Ofcourse I just used what he used and finished rest work by myself.这是一个简单的Markdown编辑器，用来为我自己的网站在发布blog或其他文本编辑内容时的使用。",
+    welcomContent:"#**MarkdownEditor**\r---\r**Note**:This application isn't my original application because my idea of imprement of the application is copied from some else(feel shamed that I can't find his web page now). Ofcourse I just used what he used and finished the rest work by myself.  \r\r这是一个简单的Markdown编辑器，用来为我自己的网站在发布blog或其他文本编辑内容时的使用。\r\r下面是几种常用的markdown格式:  \r\r* 常用字体样式  \r*斜体*，**加粗**,`底色`  \r\r* javascript代码（代码只支持javascript，html和markdown的高亮）  \r```javascript\rvar foo = function(){\r    alert('Hello world from oyyd');\r}\r```\r* 链接  \r[Build software better, together.][github]\r\r[github]:https://github.com/\r\r* 图片  \r  ![github cat](/static/pic/MarkdownEditor/github.jpg)\r\r",
     languageOverrides:{
         js: 'javascript',
-        html: 'xml'
+        html: 'xml',
+        'c++':'cpp'
     },
     events:{
         'mouseenter .markdownToolList':'toggleToolList',
@@ -34,14 +35,15 @@ var MarkdownEditor = Backbone.View.extend({
     },
     initialize:function(options){
         this.editorModel = options.model;
-        console.log(this.unescapeHtml($('template.toolItem').html()));
         this.tooltipTemp = _.template(this.unescapeHtml($('template.toolItem').html()));//Written here because
                                                                                         // the unescapeHtml function is
                                                                                         // a local function.                                                                                            
     },
     render:function(){
         this.$el.html(this.template());
-        this.renderTools();
+        if(document.cookie){
+            this.renderTools();            
+        }
         this.initEditor();
     },
     renderTools:function(){
@@ -153,10 +155,10 @@ var MarkdownEditor = Backbone.View.extend({
                 },
                 that = this;
             if(text.length<1){
-                warningMes+='原文内容为空。 '
+                warningMes+='原文内容为空。 ';
             }
             if(title.length<1){
-                warningMes+='标题为空。 '
+                warningMes+='标题为空。 ';
             }
             if(warningMes){
                 this.showWarningMes(warningMes);
@@ -178,6 +180,7 @@ var MarkdownEditor = Backbone.View.extend({
         $item.tooltip('show');
     },
     showModal:function(){
+        console.log(this.getCM().getValue());
         this.$('.modal').modal();
     },
     hideModal:function(){

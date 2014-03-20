@@ -1,7 +1,11 @@
 doctype html
 head
-    include BlogHead
+    script(src='/js/lib/highlight/highlight.pack.js')
     script(src='/js/lib/marked.js')
+    include BlogHead
+    include ../../snippet/head
     script(src='/js/blog/BlogDetail.js')
-body
-    h1 #{blog.content}
+body(ng-app='BlogDetail')
+    div.blogDetail(mark-down='content')
+        p.markdownContent.hide
+            |#{blog.content}

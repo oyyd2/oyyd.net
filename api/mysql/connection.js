@@ -1,15 +1,15 @@
 var
-    connectOption = { //developing environment
-        host:'localhost',
-        user:'root',
-        password:'',
-        dateStrings:true
-    },
-//    connectOption = { //working environment
-//        host:'115.28.142.25',
-//        user:'root',
-//        password:'holic'
-//    },
+    // connectOption = { //developing environment
+    //     host:'localhost',
+    //     user:'root',
+    //     password:'',
+    //     dateStrings:true
+    // },
+   connectOption = { //working environment
+       host:'115.28.142.25',
+       user:'root',
+       password:'holic'
+   },
     mysql  = require('mysql');
 
 var mysqlWrap = module.exports = function(callback){
