@@ -10,7 +10,7 @@ var uploadPost = module.exports = function(req,res,next){
     if(length<1){
         res.send('fail:content null');
         return ;
-    }else if(length>3000){
+    }else if(length>10000){
         res.send('fail:content too long.');
         return ;
     }
