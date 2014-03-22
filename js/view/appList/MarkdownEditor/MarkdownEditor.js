@@ -40,11 +40,12 @@ var MarkdownEditor = Backbone.View.extend({
                                                                                         // a local function.                                                                                            
     },
     render:function(){
-        this.$el.html(this.template());
+        this.$el.html(this.template());        
         if(document.cookie){
-            this.renderTools();            
+            this.initTempSaving();
+            this.renderTools();
         }
-        this.initEditor();
+        this.initEditor();        
     },
     renderTools:function(){
         var items = this.configuration.toolList.items,
@@ -57,6 +58,19 @@ var MarkdownEditor = Backbone.View.extend({
             $item.tooltip();
             this.$('.toolListPanel').append($item);
         }
+    },
+    initTempSaving:function(){        
+        var that = this;
+        this.editorModel.getLastFile(function(res){
+            if(res==='error'){
+                console.log('Failed to get temp file.');
+            }else{
+                that.lastFile = res;                
+            }
+        });
+        setInterval(function(){
+            that.editorModel.saveTempFile(that.getCM().getValue());
+        },5000);
     },
     initEditor:function(){
         this.$preview = this.$('.markdownContent');
@@ -87,10 +101,12 @@ var MarkdownEditor = Backbone.View.extend({
     },
     initCM:function(){
         var cm = null,
-            that = this;
+            that = this,
+            content = (this.lastFile)?this.lastFile:this.welcomContent;
+            // console.log(this.lastFile);
         cm = CodeMirror(this.$('.markdownTextarea')[0], {
             mode:'markdown',
-            value:that.welcomContent,
+            value:content,
             lineNumbers: true,
             lineWrapping: true
         });

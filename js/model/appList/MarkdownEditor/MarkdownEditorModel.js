@@ -22,5 +22,34 @@ var MarkdownEditorModel = Backbone.View.extend({
             }).fail(function(){
                 if(fail) fail('Request failed!');
             });
+    },
+    getLastFile:function(callback){
+        $.ajax({
+            url:'/MarkdownEditor/getLastFile',
+            type:'GET',
+            dataType:'text',
+            async:false
+        }).done(function(res){
+            callback(res);
+        }).fail(function(){
+            console.log('请检查网络连接');
+        });
+    },
+    saveTempFile:function(text){
+        // console.log(text);
+        $.ajax({
+            url:'/MarkdownEditor/saveTempFile',
+            type:'POST',
+            dataType:'text',
+            data:{
+                data:text
+            }
+        }).done(function(res){
+            if(res!=='success'){
+                console.log(res);
+            }
+        }).fail(function(){
+            console.log('Temp file saving link error.');
+        });
     }
 });
