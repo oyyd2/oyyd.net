@@ -1,13 +1,17 @@
 var fork = require('child_process').fork,
     cpus = require('os').cpus().length,
     server = require('net').createServer(),
-    workers = {};
+    workers = {},
+    error = require('./error.js');
 
 server.listen(2333);
 console.log('Master server is running on 2333.');
 
 var createWorker = function(){
     var worker = fork(__dirname+'/worker.js');
+    worker.on('error',function(err){
+        error(err);
+    });
     worker.on('exit',function(){
         console.log('Worker '+worker.pid+' exited.');
         delete workers[worker.pid];

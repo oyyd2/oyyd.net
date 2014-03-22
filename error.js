@@ -5,5 +5,5 @@ var error = module.exports = function(err,req,res,next){
 			throw(err);
 		}
 	});
-	console.log(err);
+	// console.log(err);
 };

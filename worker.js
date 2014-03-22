@@ -17,9 +17,9 @@ app.use(lessMiddleware({
     compress:true
 }));
 app.use(express.bodyParser());
-app.use(function(err,req,res,next){
-	error(err,req,res,next);
-});
+// app.use(function(err,req,res,next){
+// 	error(err,req,res,next);
+// });
 
 app.use('/static',express.static(__dirname+'/static'));
 app.use('/js',express.static(__dirname+'/js'));
