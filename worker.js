@@ -5,7 +5,7 @@ var express = require('express'),
     app = express(),
     uiRoute = require('./uiRoute'),
     apiRoute = require('./apiRoute'),
-    error = require('./error');
+    error = require('./error');    
 
 //configuration
 app.engine('jade',require('jade').__express);
@@ -38,7 +38,8 @@ process.on('message',function(m,tcp){
         });
 	}
 });
-process.on('uncaughtException',function(){
+process.on('uncaughtException',function(err){
+    error(err);
 	worker.close(function(){
 		process.exit(1);
 	});
