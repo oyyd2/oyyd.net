@@ -1,7 +1,7 @@
 var d = require('domain').create();
 
 d.on('error',function(err){
-	console.log('Error occurs.');
+	console.log(err);
 });
 
 d.run(function(){

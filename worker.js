@@ -40,7 +40,7 @@ process.on('message',function(m,tcp){
 });
 
 process.on('uncaughtException',function(err){
-    error(err);
+    error(err.stack);
     worker.close(function(){
         console.log('tcp is closed.');
         process.exit(1);
