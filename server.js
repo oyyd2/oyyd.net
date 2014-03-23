@@ -1,10 +1,9 @@
 var fork = require('child_process').fork,
-    cpus = require('os').cpus().length,    
+    // cpus = require('os').cpus().length,    
+    cpus = 1,
     server = require('net').createServer(),
     workers = {},
     error = require('./error.js');
-
-console.log('Master server is running on 2333.');
 
 var createWorker = function(){
     var worker = fork(__dirname+'/worker.js');
@@ -27,6 +26,7 @@ for(var i=0;i<cpus;i++){
 }
 
 server.listen(2333,'localhost',function(){
+    console.log('Master server is running on 2333.');    
     for(var pid in workers){
         workers[pid].send('server',server);        
     }
