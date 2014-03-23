@@ -31,6 +31,7 @@ var worker;
 
 process.on('message',function(m,tcp){
 	if(m==='server'){
+        console.log('server message recieved.');
 		worker = tcp;
         worker.on('connection',function(socket){
             console.log(process.pid+' connected.');
