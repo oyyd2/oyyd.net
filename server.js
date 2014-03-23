@@ -24,16 +24,12 @@ for(var i=0;i<cpus;i++){
     createWorker();
 }
 
-server.on('connection',function(){
-    console.log('Master got connected.');
-});
-
 server.listen(2333,function(){
     console.log('Master server is running on 2333.');    
-    // for(var pid in workers){
-    //     workers[pid].send('server',server);        
-    // }
-    // server.close();    
+    for(var pid in workers){
+        workers[pid].send('server',server);        
+    }
+    server.close();    
 });
 
 process.on('exit',function(){
