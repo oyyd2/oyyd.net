@@ -1,6 +1,5 @@
 var fork = require('child_process').fork,
-    // cpus = require('os').cpus().length,    
-    cpus = 1,
+    cpus = require('os').cpus().length,    
     server = require('net').createServer(),
     workers = {},
     error = require('./error.js');

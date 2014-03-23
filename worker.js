@@ -33,6 +33,12 @@ process.on('message',function(m,tcp){
 	if(m==='server'){
         console.log('server message recieved.');
 		worker = tcp;
+        worker.on('close',function(){
+            console.log('tcp is closed.');
+        });
+        worker.on('listening',function(){
+            console.log('tcp is listening.');
+        });        
         worker.on('connection',function(socket){
             console.log(process.pid+' connected.');
             httpServer.emit('connection',socket);
