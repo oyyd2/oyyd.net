@@ -1,6 +1,7 @@
 var fs = require('fs');
 var error = module.exports = function(err){
-    var errInfo = (new Date()).toString();    
+    var errInfo = (new Date()).toString();
+    errInfo+='\n'+err.toString();
     errInfo+='\ncode '+err.code+'\n';
     errInfo+='errno '+err.errno+'\n\n';
 
