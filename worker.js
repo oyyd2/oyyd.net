@@ -1,6 +1,7 @@
 //dependency
 var express = require('express'),
     lessMiddleware = require('less-middleware'),
+    http = require('http'),
     app = express(),
     uiRoute = require('./uiRoute'),
     apiRoute = require('./apiRoute'),
@@ -17,9 +18,6 @@ app.use(lessMiddleware({
     compress:true
 }));
 app.use(express.bodyParser());
-// app.use(function(err,req,res,next){
-// 	error(err,req,res,next);
-// });
 
 app.use('/static',express.static(__dirname+'/static'));
 app.use('/js',express.static(__dirname+'/js'));
@@ -28,11 +26,16 @@ app.use('/js',express.static(__dirname+'/js'));
 uiRoute(app);
 apiRoute(app);
 
+var httpServer = http.createServer(app);
 var worker;
+
 process.on('message',function(m,tcp){
 	if(m==='server'){
 		worker = tcp;
-		app.listen(worker);
+        worker.on('connection',function(socket){
+            console.log(process.pid+' connected.');
+            httpServer.emit('connection',socket);
+        });
 	}
 });
 process.on('uncaughtException',function(){

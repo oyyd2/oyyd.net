@@ -1,21 +1,25 @@
 var
-    connectOption = { //developing environment
-        host:'localhost',
-        user:'root',
-        password:'',
-        dateStrings:true
-    },
-    // connectOption = { //working environment
+    // connectOption = { //developing environment
     //     host:'localhost',
     //     user:'root',
-    //     password:'holic',
+    //     password:'',
     //     dateStrings:true
     // },
+    connectOption = { //working environment
+        host:'localhost',
+        user:'root',
+        password:'holic',
+        dateStrings:true
+    },
     mysql  = require('mysql');
 
 var mysqlWrap = module.exports = function(callback){
     var connection = mysql.createConnection(connectOption);
-    connection.connect();
+    connection.connect(function(err){
+        if (err){
+            throw err;
+        }
+    });
     connection.query('use oyyd');
     callback(connection);
     connection.end();
