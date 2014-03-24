@@ -25,8 +25,4 @@ var uiRoute = module.exports = function(app){
     app.get('/appList/TodoList',function(req,res,next){
         res.render('./appList/todo/todoList.jade');
     });
-//  Bug test page
-    app.get('/',function(req,res,next){
-        res.render('./snippet/testbug.jade');
-    });
 };
