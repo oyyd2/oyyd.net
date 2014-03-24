@@ -1,9 +1,9 @@
-var d = require('domain').create();
+var server = require('http').createServer();
 
-d.on('error',function(err){
-	console.log(err);
+server.on('request',function(req,res){
+	res.writeHead(200,{'Content-Type':'text/plain'});
+	res.end('Server is on working.');
 });
 
-d.run(function(){
-	throw new Error('myError.');
-});
+server.listen(2333);
+console.log('Running on 2333');
