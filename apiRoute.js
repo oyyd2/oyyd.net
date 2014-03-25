@@ -19,6 +19,9 @@ var apiRoute = module.exports = function(app){
     app.get('/blog/getList',function(req,res,next){
         require('./api/blog/getList')(req,res,next);
     });
+    app.post('/blog/delete',function(req,res,next){
+        require('./api/blog/deleteBlog')(req,res,next);
+    });
     // todo
     app.get('/todo/getList',function(req,res,next){
         require('./api/todo/getTodos')(req,res,next);

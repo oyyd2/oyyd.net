@@ -5,7 +5,8 @@ head
     include BlogHead
     include ../../snippet/head
     script(src='/js/blog/BlogDetail.js')
-body(ng-app='BlogDetail')
-    div.blogDetail(mark-down='content')
-        p.markdownContent.hide
-            |#{blog.content}
+body.blog(ng-app='BlogDetail')
+    div.blogDetailWrap
+        div.blogDetail(mark-down='content')
+            p.markdownContent.hide
+                |#{blog.content}

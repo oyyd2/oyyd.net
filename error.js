@@ -5,7 +5,7 @@ var error = module.exports = function(err){
     // errInfo+='\ncode '+err.code+'\n';
     // errInfo+='errno '+err.errno+'\n\n';
 
-	fs.appendFile('./logs/errorLog/errorLog.txt',errInfo,function(err){
+	fs.appendFile('./logs/errorLog/errorLog.txt',errInfo+'\n',function(err){
 		if (err) {			
 			throw(err);
 		}

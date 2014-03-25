@@ -7,19 +7,21 @@ var addTodo = module.exports = function(req,res,next){
 		res.send('Null Content');
 		return;
 	}	
-	if(!loginToken.check(token)){
-		res.send('请先登录');
-		return;		
-	}
-	var query = "INSERT INTO todo(content,uploadTime) VALUES('"+content+"','"+mysql.getCurrentDateTime()+"')";
-	mysql(function(connection){
-		connection.query(query,function(err,rows){
-			if(err){
-				res.send('500');
-				throw err;
-			}else{
-				res.send('success');
-			}
+	loginToken.check(token,function(pass){
+		if(!pass){
+			res.send('请先登录');
+			return;		
+		}
+		var query = "INSERT INTO todo(content,uploadTime) VALUES('"+content+"','"+mysql.getCurrentDateTime()+"')";
+		mysql(function(connection){
+			connection.query(query,function(err,rows){
+				if(err){
+					res.send('500');
+					throw err;
+				}else{
+					res.send('success');
+				}
+			});
 		});
-	});
+	});	
 };

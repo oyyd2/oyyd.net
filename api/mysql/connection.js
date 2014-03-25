@@ -1,16 +1,16 @@
 var
-    // connectOption = { //developing environment
-    //     host:'localhost',
-    //     user:'root',
-    //     password:'',
-    //     dateStrings:true
-    // },
-    connectOption = { //working environment
-        host:'localhost',
-        user:'root',
-        password:'holic',
-        dateStrings:true
+    connectOption = { //developing environment
+         host:'localhost',
+         user:'root',
+         password:'',
+         dateStrings:true
     },
+//    connectOption = { //working environment
+//        host:'localhost',
+//        user:'root',
+//        password:'holic',
+//        dateStrings:true
+//    },
     mysql  = require('mysql');
 
 var mysqlWrap = module.exports = function(callback){
@@ -26,6 +26,9 @@ var mysqlWrap = module.exports = function(callback){
 };
 
 mysqlWrap.escapeStr = function (str) {
+    if (!str){
+        return '';
+    }
     return str.replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function (char) {
         switch (char) {
             case "\0":

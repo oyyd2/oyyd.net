@@ -2,12 +2,18 @@ doctype html
 head
     include BlogHead
     script(src='/js/blog/BlogList.js')
-body(ng-app='BlogList',ng-controller='BlogListCtrl')
+body(ng-app='BlogList',ng-controller='BlogListCtrl').blog
     div.container
-        div(ng-repeat='blog in blogs')
+        h1.title 
+            |Blog List
+        div.row.blogListItem(ng-repeat='blog in blogs')
             .col-md-6
-                a(href='/appList/blog/{{blog.postId}}') {{blog.title}}
-            .col-md-2
+                a.link(href='/appList/blog/{{blog.postId}}') 
+                    {{blog.title}}
+            .col-md-2.blogFont
                 {{blog.type}}
-            .col-md-4
+            .col-md-3.blogFont
                 {{blog.uploadTime}}
+            .col-md-1
+                button.btn.btn-blog(blog-delete='{{blog.postId}}').
+                    X

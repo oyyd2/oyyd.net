@@ -1,5 +1,5 @@
 var mysql = require('../mysql/connection'),
-    query = "SELECT postId,title,type,uploadTime FROM post";
+    query = "SELECT postId,title,type,uploadTime FROM post ORDER BY uploadTime DESC";
 var getList = module.exports = function(req,res,next){
     mysql(function(connection){
         connection.query(query,function(err,rows,fields){
