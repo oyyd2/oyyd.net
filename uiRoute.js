@@ -25,4 +25,8 @@ var uiRoute = module.exports = function(app){
     app.get('/appList/TodoList',function(req,res,next){
         res.render('./appList/todo/todoList.jade');
     });
+//  Efficiency
+    app.get('/appList/Efficiency',function(req,res,next){
+        res.render('./appList/efficiency/efficiency.jade');
+    });
 };
