@@ -1,40 +1,35 @@
-var 
-    filePath = 'token.txt',
-    fs = require('fs'),
+var client = require('redis').createClient('6379','127.0.0.1'),
     clearTime = 60,
-    loginToken = module.exports = function(loginToken){
-        fs.writeFile(filePath,loginToken,function(err){
+    loginToken = module.exports = function(loginToken){        
+        client.set('token',loginToken,function(err){
             if(err){
+                console.log(err);
                 throw err;
             }
-        });
-    },
-    setClearToken = function(){
-        var clearTimeId = arguments.callee.clearTimeId;
-        if(clearTimeId){
-            clearTimeout(clearTimeId);
-        }
-        arguments.callee.clearTimeId = setTimeout(function(){
-            fs.rmdir(filePath,function(){
-
-            });
-        },clearTime*1000*60);
-    };
-loginToken.check = function(cookieToken,callback){
-    fs.exists(filePath,function(exists){
-        if(exists) {
-            fs.readFile(filePath,{encoding:'utf8'},function(err,data){                
-                console.log(data,'\n',cookieToken);
-                if(data!==cookieToken){
-                    callback(false);
-                }else{
-                    callback(true);
+            client.expire('token',clearTime*60,function(err){
+                if(err){
+                    console.log(err);
+                    throw err;
                 }
-            });            
-        }else{
+            });
+        });
+    };
+
+client.on('error',function(err){
+    console.log(err);
+    throw err;
+});
+
+loginToken.check = function(cookieToken,callback){
+    client.get('token',function(err,reply){
+        if(err){
+            console.log(err);
+            throw err;
+        }
+        if(!reply || reply!== cookieToken){
             callback(false);
+        }else{
+            callback(true);
         }
     });
-    
 };
-setClearToken.clearTimeId = null;
