@@ -1,6 +1,6 @@
 var app = angular.module('todoList',[]);
 
-app.controller('todoCtrl',function($scope,$http,$window){	
+app.controller('todoCtrl',['$scope','$http','$window',function($scope,$http,$window){	
 	$scope.title = 'todoList';
 	$scope.todos = [];
 	$http.get('/todo/getList').success(function(todos){
@@ -18,7 +18,7 @@ app.controller('todoCtrl',function($scope,$http,$window){
 			alert('请检查网络连接');
 		});
 	};
-}).directive('todoIsChecked',function(){
+}]).directive('todoIsChecked',function(){
 	function link(s,e,a){
 		if(a.todoIsChecked=='1'){
 			e.find('p.todoContent').css('text-decoration','line-through');
@@ -30,7 +30,7 @@ app.controller('todoCtrl',function($scope,$http,$window){
 	};
 });
 
-app.controller('submitTodo',function($scope,$http,$window){
+app.controller('submitTodo',['$scope','$http','$window',function($scope,$http,$window){
 	$scope.content = '';
 	$scope.submitTodo = function(){
 		if($scope.content===''){
@@ -44,4 +44,4 @@ app.controller('submitTodo',function($scope,$http,$window){
 			alert('请检查网络连接');
 		});
 	};
-});
+}]);

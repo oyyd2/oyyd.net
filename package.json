@@ -1,0 +1,24 @@
+{
+  "name": "oyyd.net",
+  "version": "0.2.0",
+  "description": "Personal website",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oyyd/oyyd.net.git"
+  },
+  "author": "oyyd",
+  "license": " ",
+  "bugs": {
+    "url": "https://github.com/oyyd/oyyd.net/issues"
+  },
+  "homepage": "https://github.com/oyyd/oyyd.net",
+  "devDependencies":{
+    "grunt": "^0.4.4",
+    "grunt-contrib-uglify": "~0.2.2"  
+  }
+}

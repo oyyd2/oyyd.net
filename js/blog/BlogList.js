@@ -1,5 +1,5 @@
 var blogList = angular.module('BlogList',[]);
-blogList.controller('BlogListCtrl',function($scope,$http,$window){
+blogList.controller('BlogListCtrl',['$scope','$http','$window',function($scope,$http,$window){
     $scope.blogs = [];
     $http.get('/blog/getList').success(function(data){
         console.log(data);
@@ -24,7 +24,7 @@ blogList.controller('BlogListCtrl',function($scope,$http,$window){
             console.log('check net.');
         });
     };
-});
+}]);
 
 blogList.directive('blogDelete',function(){
 	function link(s,e,a){

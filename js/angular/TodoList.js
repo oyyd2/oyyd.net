@@ -1,6 +1,6 @@
 var todoListApp = angular.module('TodoList',[]);
 
-todoListApp.controller('todoListCtrl',function($scope){
+todoListApp.controller('todoListCtrl',['$scope',function($scope){
     $scope.items = [];
     $scope.editedItem = '';
     $scope.addItem = function($event){
@@ -38,7 +38,7 @@ todoListApp.controller('todoListCtrl',function($scope){
             $scope.isAllChecked = isAllChecked;
         }
     }
-}).directive('itemCount',function(){
+}]).directive('itemCount',function(){
         function link(scope,element,attrs){
             scope.$watch(function(scope){
                 return scope.items.length;
