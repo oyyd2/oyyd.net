@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <meta charset="utf-8">
+  <link href="/client/static/css/styles.css" rel="stylesheet">
+  <script src="/client/js/lib/jquery-2.1.0.min.js"></script>
+  <script src="/client/js/lib/bootstrap.min.js"></script>
+  <script src="/client/js/lib/underscore-min.js"></script>
+  <script src="/client/js/lib/backbone-min.js"></script>
+  <link rel="stylesheet" href="/client/static/css/MarkdownEditor.css">
+  <body>
+    <template class="toolItem">
+      <div class="itemCtr"><span data-toggle="tooltip" title="&lt;%=content%&gt;" data-placement="bottom" class="icon &lt;%=iconClass%&gt; &lt;%=meanClass%&gt;"></span></div>
+    </template>
+    <template class="markdownEditor">
+      <div class="markdownToolList">
+        <div class="toolListPanel"></div>
+      </div>
+      <div class="markdownTextarea col-md-6"></div>
+      <div class="markdownPreview col-md-6">       
+        <div class="markdownContent"></div>
+      </div>
+      <div class="modalRegion">
+        <div class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" data-dismiss="modal" class="close">&times;</button>
+                <h4 class="modal-title">保存选项</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group row">
+                  <div class="col-md-3">
+                    <label>标题</label>
+                  </div>
+                  <div class="col-md-9">
+                    <input type="text" class="form-control title">
+                  </div>
+                </div>
+                <div class="form-group row marginTop25">
+                  <div class="col-md-3">
+                    <label>类型</label>
+                  </div>
+                  <div class="col-md-9">
+                    <select class="form-control postType">
+                      <option value="casual">casual</option>
+                      <option value="browser javascript">browser javascript</option>
+                      <option value="nodejs">nodejs</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer"><span class="tipsRegion label label-danger hide">123123</span>
+                <button data-dismiss="modal" class="btn">取消</button>
+                <button class="btn btn-primary submitPost">保存</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+    <script src="/client/js/lib/js-deflate/base64.js"></script>
+    <script src="/client/js/lib/js-deflate/rawinflate.js"></script>
+    <script src="/client/js/lib/js-deflate/rawdeflate.js"></script>
+    <script src="/client/js/lib/marked.js"></script>
+    <script src="/client/js/lib/codemirror/codemirror.js"></script>
+    <script src="/client/js/lib/codemirror/mode/markdown/markdown.js"></script>
+    <script src="/client/js/lib/highlight/highlight.pack.js"></script>
+    <script src="/client/markdown_editor/MarkdownEditor.js"></script>
+    <script src="/client/markdown_editor/MarkdownEditorModel.js"></script>
+    <script src="/client/markdown_editor/MarkdownEditorCtr.js"></script>
+  </body>
+</html>
