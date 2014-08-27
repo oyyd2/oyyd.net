@@ -2,6 +2,8 @@
 //and then rendered. Otherwise, some problem
 //comes to codemirror when use CodeMirror.fromTextArea().
 var MarkdownEditor = Backbone.View.extend({
+    CONTENT_REF:'MarkdownContent',
+    AUTO_SAVING_INTERVAL:60*1000,
     configuration:{
         beforeUnloadTips:'离开后数据将会遗失。',
         toolList:{
@@ -13,6 +15,16 @@ var MarkdownEditor = Backbone.View.extend({
                     class:'saveOnServer',
                     title:'保存到服务器',
                     iconClass:'profile'
+                },
+                {
+                    class:'saveOnLocal',
+                    title:'浏览器本地保存',
+                    iconClass:'document'  
+                },
+                {
+                    class:'printView',
+                    title:'打印预览',
+                    iconClass:'print'  
                 }
             ]
         }
@@ -27,11 +39,13 @@ var MarkdownEditor = Backbone.View.extend({
         'c++':'cpp'
     },
     events:{
-        'mouseenter .markdownToolList':'toggleToolList',
-        'mouseleave .markdownToolList':'toggleToolList',
+        'mouseenter .markdownToolList':'focusToolList',
+        'mouseleave .markdownToolList':'blurToolList',
         'click .saveOnServer':'showModal',
         'mouseenter .itemCtr>.icon':'showTooltip',
-        'click .submitPost':'saveOnServer'
+        'click .submitPost':'saveOnServer',
+        'click .saveOnLocal':'saveOnLocal',
+        'click .printView':'showPrintingView'
     },
     initialize:function(options){
         this.editorModel = options.model;
@@ -39,13 +53,33 @@ var MarkdownEditor = Backbone.View.extend({
                                                                                         // the unescapeHtml function is
                                                                                         // a local function.                                                                                            
     },
+    isLocalStorageAvailable:function(){
+        return ('localStorage' in window && typeof localStorage.setItem == 'function')?true:false;        
+    },
     render:function(){
-        this.$el.html(this.template());        
-        if(document.cookie){
-            this.initTempSaving();
-            this.renderTools();
+        this.$el.html(this.template());      
+        if(this.isLocalStorageAvailable()){
+            if(localStorage.getItem(this.CONTENT_REF)){
+                this.lastFile = localStorage.getItem(this.CONTENT_REF);
+            }            
+        }        
+        this.renderTools();                
+        this.initEditor();                
+        if(this.isLocalStorageAvailable()){
+            this.initAutoLocalSaving();            
         }
-        this.initEditor();        
+    },    
+    initAutoLocalSaving:function(){        
+        var that = this;
+        if(this.isLocalStorageAvailable()){
+            setInterval(function(){
+                console.log('Saved.');
+                localStorage.setItem(that.CONTENT_REF,that.getCM().getValue());
+            },this.AUTO_SAVING_INTERVAL);
+        }
+    },
+    showPrintingView:function(){
+        print();
     },
     renderTools:function(){
         var items = this.configuration.toolList.items,
@@ -147,15 +181,20 @@ var MarkdownEditor = Backbone.View.extend({
     updatePreview:function(markdownText){
         this.$preview.html(marked(markdownText));
     },
-    toggleToolList:function(){
+    blurToolList:function(){
+        this.toggleToolList(true);
+    },
+    focusToolList:function(){
+        this.toggleToolList(false);
+    },
+    toggleToolList:function(show){
         var $toolList = this.$('.toolListPanel'),
             duration = this.configuration.toolList.duration,
-            left = ($toolList.hasClass('active'))?this.configuration.toolList.left:this.configuration.toolList.activeLeft;
+            left = (show)?this.configuration.toolList.left:this.configuration.toolList.activeLeft;
         $toolList.toggleClass('active');
         $toolList.stop().animate({
             'left':left
         },duration);
-
     },
     saveOnServer:function(){
         this.hideWarningMes();
@@ -191,13 +230,24 @@ var MarkdownEditor = Backbone.View.extend({
             throw e;
         }
     },
+    saveOnLocal:function(){
+        if(this.isLocalStorageAvailable()){
+            localStorage.setItem(this.CONTENT_REF,this.getCM().getValue());
+            this.$('[data-result="success"]').removeClass('hide');
+            this.$('[data-result="fail"]').addClass('hide');
+        }else{
+            this.$('[data-result="success"]').addClass('hide');
+            this.$('[data-result="fail"]').removeClass('hide');
+        }
+        this.$('[data-name="local_saving"]').modal();
+    },
     showTooltip:function(event){
         var $item = $(event.currentTarget);
         $item.tooltip('show');
     },
     showModal:function(){
-        console.log(this.getCM().getValue());
-        this.$('.modal').modal();
+        // console.log(this.getCM().getValue());
+        this.$('[data-name="server_saving"]').modal();
     },
     hideModal:function(){
         this.$('.modal').modal('hide');

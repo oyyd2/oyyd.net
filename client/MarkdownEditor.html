@@ -16,20 +16,24 @@
       <div class="markdownToolList">
         <div class="toolListPanel"></div>
       </div>
-      <div class="markdownTextarea col-md-6"></div>
-      <div class="markdownPreview col-md-6">       
+      <div class="markdownTextarea col-md-6 col-sm-6 hidden-xs"></div>
+      <div class="markdownPreview col-md-6 col-sm-6">       
         <div class="markdownContent"></div>
       </div>
       <div class="modalRegion">
-        <div class="modal fade">
+        <!-- Server saving modal -->
+        <div class="modal fade" data-name="server_saving">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" data-dismiss="modal" class="close">&times;</button>
                 <h4 class="modal-title">保存选项</h4>
               </div>
+              <!-- Stop server service -->
               <div class="modal-body">
-                <div class="form-group row">
+                <!-- Tips of stopping service -->
+                <p class="warning-tips">服务器储存已停用。</p>
+                <!-- <div class="form-group row">
                   <div class="col-md-3">
                     <label>标题</label>
                   </div>
@@ -48,12 +52,35 @@
                       <option value="nodejs">nodejs</option>
                     </select>
                   </div>
-                </div>
+                </div> -->
               </div>
-              <div class="modal-footer"><span class="tipsRegion label label-danger hide">123123</span>
+              <!-- <div class="modal-footer"><span class="tipsRegion label label-danger hide">123123</span>
                 <button data-dismiss="modal" class="btn">取消</button>
                 <button class="btn btn-primary submitPost">保存</button>
+              </div>               -->
+            </div>
+          </div>
+        </div>
+        <!-- Local saving modal -->
+        <div class="modal fade" data-name="local_saving">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" data-dismiss="modal" class="close">&times;</button>
+                <h4 class="modal-title">浏览器储存储存</h4>
               </div>
+              <div class="modal-body">
+                <p data-result="success">
+                  储存成功！
+                </p>
+                <p data-result="fail">
+                  对不起，您的浏览器不支持DOM储存！
+                </p>
+              </div>
+              <!-- <div class="modal-footer"><span class="tipsRegion label label-danger hide">123123</span>
+                <button data-dismiss="modal" class="btn">取消</button>
+                <button class="btn btn-primary submitPost">保存</button>
+              </div>               -->
             </div>
           </div>
         </div>
