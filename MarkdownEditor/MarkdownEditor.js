@@ -32,7 +32,7 @@ var MarkdownEditor = Backbone.View.extend({
     className:'MarkdownEditor',
     cm:null,
     $preview:null,
-    welcomContent:"#**MarkdownEditor**\r---\r**Note**:This application isn't my original application because my idea of imprement of the application is copied from some else(feel shamed that I can't find his web page now). Ofcourse I just used what he used and finished the rest work by myself.  \r\r这是一个简单的Markdown编辑器，用来为我自己的网站在发布blog或其他文本编辑内容时的使用。\r\r下面是几种常用的markdown格式:  \r\r* 常用字体样式  \r*斜体*，**加粗**,`底色`  \r\r* javascript代码（代码只支持javascript，html和markdown的高亮）  \r```javascript\rvar foo = function(){\r    alert('Hello world from oyyd');\r}\r```\r* 链接  \r[Build software better, together.][github]\r\r[github]:https://github.com/\r\r* 图片  \r  ![github cat](/client/static/pic/MarkdownEditor/github.jpg)\r\r",
+    welcomContent:"#**MarkdownEditor**\r---\r**Note**:This application isn't my original application because my idea of imprement of the application is copied from some else(feel shamed that I can't find his web page now). Ofcourse I just used what he used and finished the rest work by myself.  \r\r这是一个简单的Markdown编辑器，用来为我自己的网站在发布blog或其他文本编辑内容时的使用。\r\r下面是几种常用的markdown格式:  \r\r* 常用字体样式  \r*斜体*，**加粗**,`底色`  \r\r* javascript代码（代码只支持javascript，html和markdown的高亮）  \r```javascript\rvar foo = function(){\r    alert('Hello world from oyyd');\r}\r```\r* 链接  \r[Build software better, together.][github]\r\r[github]:https://github.com/\r\r* 图片  \r  ![github cat](/static/pic/MarkdownEditor/github.jpg)\r\r",
     languageOverrides:{
         js: 'javascript',
         html: 'xml',
