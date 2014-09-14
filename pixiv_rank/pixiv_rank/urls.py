@@ -8,8 +8,8 @@ urlpatterns = patterns('',
     # url(r'^$', 'pixiv_statistic.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^rank/',include('ranks.urls')),
-    url(r'^user/',include('users.urls')),
-    url(r'^pic/',include('pics.urls')),
+    url(r'^pixiv/admin/', include(admin.site.urls)),
+    url(r'^pixiv/rank/',include('ranks.urls')),
+    url(r'^pixiv/user/',include('users.urls')),
+    url(r'^pixiv/pic/',include('pics.urls')),
 )
