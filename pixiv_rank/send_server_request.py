@@ -1,5 +1,6 @@
 from urllib2 import urlopen,quote
 from datetime import date,timedelta
+import httplib
 import time
 
 import sendRequest
@@ -25,7 +26,13 @@ def makeRequest(targetUrl):
     url = "http://%s" % serverHost + targetUrl
     url = url.encode('utf-8')
     #print url
-    return urlopen(url).read()
+    resultStream = urlopen(url)
+    #fix httplib.IncompleteRead bug
+    try:
+        content = resultStream.read()
+    except httplib.IncompleteRead as e:
+        content = e.partial
+    return content
 
 # def uriEncode(list):
 #     for i in list:
