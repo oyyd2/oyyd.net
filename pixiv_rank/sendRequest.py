@@ -12,11 +12,14 @@ def requestData(date):
     d = pq(urlopen(targetUrl).read())
 
     for i in range(1,rank_range+1):  
-        element = d.find('section[data-rank="%d"]' % i)
+        element = d.find('section[data-rank="%d"]' % i)        
+        # If the pic is unaccessible, return.
+        if element.size()==0 :
+            continue
         user_container = element.find('a.user-container')
         pic_url = element.find('a.work').find('img').attr('data-src')
         validate_rank_date = rank_date[0:4] + '-' + rank_date[4:6] + '-' + rank_date[6:]
-        pic_date = element.attr('data-date')
+        pic_date = element.attr('data-date')                
         pic_date = pic_date[0:4] + '-' + pic_date[5:7] + '-' + pic_date[8:10]
         pic_id = pic_url.split('/')[-1]
         pic_id = pic_id[0:pic_id.find('_')]

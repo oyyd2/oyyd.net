@@ -7,9 +7,9 @@ import sendRequest
 serverHost = '127.0.0.1:8000/pixiv'
 #serverHost = 'app.oyyd.net/pixiv'
 
-startDate = date(year=2014,month=9,day=1)
+startDate = date(year=2014,month=7,day=29)
 # How many days to request
-days = 1
+days = 10
 requestInterval = 5
 
 # URL example.
@@ -24,7 +24,7 @@ requestInterval = 5
 def makeRequest(targetUrl):
     url = "http://%s" % serverHost + targetUrl
     url = url.encode('utf-8')
-    print url
+    #print url
     return urlopen(url).read()
 
 # def uriEncode(list):
@@ -44,10 +44,10 @@ def insertPic(pixiv_id,pic_id,title,url,view_count,total_score):
     return makeRequest(targetUrl)
 
 def sendInsert(arr):
-    for i in range(0,3):
-        insertUser(pixiv_id=arr[i]['pixiv_id'],name=arr[i]['user_name'],profile_img_url=arr[i]['user_profile_img'],)
-        insertRank(rank=arr[i]['rank'],pixiv_id=arr[i]['pixiv_id'],date=arr[i]['rank_date'],)
-        insertPic(
+    for i in range(0,len(arr)):
+        userRes = insertUser(pixiv_id=arr[i]['pixiv_id'],name=arr[i]['user_name'],profile_img_url=arr[i]['user_profile_img'],)
+        rankRes = insertRank(rank=arr[i]['rank'],pixiv_id=arr[i]['pixiv_id'],date=arr[i]['rank_date'],)
+        picRes = insertPic(
             pixiv_id=arr[i]['pixiv_id'],
             pic_id=arr[i]['pic_id'],
             title=arr[i]['title'],
@@ -55,11 +55,17 @@ def sendInsert(arr):
             view_count=arr[i]['view_count'],
             total_score=arr[i]['total_score'],
         )
-
+        if (userRes!='success')and(userRes!='success')and(userRes!='success') :
+            return False            
+    return True
 for i in range(0,days):
-    currentDate = startDate - timedelta(days=i+1)
+    currentDate = startDate - timedelta(days=i+1)    
+    print "%s (%s/%s)" % (currentDate, i ,days)
     arr = sendRequest.requestData(date=currentDate)
-    sendInsert(arr)
+    insertSuccess = sendInsert(arr)
+    if not insertSuccess :
+        print 'FAIL'
+        break;
     if i<days-1 :
         time.sleep(requestInterval)
 print 'done'
