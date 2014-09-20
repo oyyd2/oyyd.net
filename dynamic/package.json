@@ -1,0 +1,19 @@
+{
+  "name": "app.oyyd.net",
+  "version": "0.2.0",
+  "dependencies": {
+    "express": "4.x",
+    "less": "~1.7.3",
+    "less-middleware": "~1.0.3",
+    "jade": "~1.3.1",        
+    "async": "~0.9.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-less": "~0.11.3",
+    "grunt-contrib-watch": "~0.6.1",
+    "should": "^4.0.4",
+    "supertest": "^0.13.0"
+  }
+}
