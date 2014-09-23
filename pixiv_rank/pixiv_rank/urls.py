@@ -12,4 +12,5 @@ urlpatterns = patterns('',
     url(r'^pixiv/rank/',include('ranks.urls')),
     url(r'^pixiv/user/',include('users.urls')),
     url(r'^pixiv/pic/',include('pics.urls')),
+    url(r'^pixiv/service/',include('service.urls')),
 )

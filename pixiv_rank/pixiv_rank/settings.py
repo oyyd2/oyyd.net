@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'ranks',
     'pics',
     'users',
+    'service',
 )
 
 MIDDLEWARE_CLASSES = (

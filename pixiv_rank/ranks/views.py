@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 def response(request, rank, user, date):
     user_instance = User.objects.get(pixiv_id=user)
     rankInstance, created = Rank.objects.get_or_create(
-        rank=rank, 
+        rank=rank,
         date=date,
         defaults={'user_id':user_instance.id},
     )    

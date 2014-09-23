@@ -1,7 +1,17 @@
 var express = require('express'),
-    http = require('http');
+    http = require('http'),
+    lessMiddleware = require('less-middleware');
 
 var app = express();
+
+// Configuration
+app.engine('jade',require('jade').__express);
+app.use(lessMiddleware(__dirname+'/less'));
+app.use(express.static(__dirname+'/less'));
+
+// Include router.
+var pixiv = require('./route/pixiv');
+app.use('/pixiv',pixiv);
 
 var httpServer = http.createServer(app);
 var worker;
