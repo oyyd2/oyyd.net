@@ -1,0 +1,11 @@
+doctype html
+html
+    head
+        link(href='/test.css',rel='stylesheet')
+        script(src='/static/lib/angular.min.js')
+        script(src='/static/js/pixiv/most_viewed_pic/app.js')
+    body(ng-app='mostViewedPic',ng-controller='mostViewedPicController')
+        article(ng-repeat='pic in pics')
+            label {{pic.title}}
+            img(src='{{pic.url}}')
+            label daily viewed {{pic.view_count}}

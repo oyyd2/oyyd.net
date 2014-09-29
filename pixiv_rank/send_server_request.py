@@ -5,7 +5,7 @@ import time
 
 import sendRequest
 
-serverHost = '127.0.0.1:8000/pixiv'
+serverHost = '127.0.0.1:8000/pixiv/api'
 #serverHost = 'app.oyyd.net/pixiv'
 
 startDate = date(year=2014,month=7,day=29)

@@ -12,12 +12,15 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'l05uivx0243l@qdsr&pp=h(998+97y4vh@@l6c+i&7b@1_1+%&'
+#SECRET_KEY = 'l05uivx0243l@qdsr&pp=h(998+97y4vh@@l6c+i&7b@1_1+%&'
+# with open('../conf/secret_key.txt') as f:
+#     SECRET_KEY = f.read().strip()
+from conf import django_conf as conf
+SECRET_KEY = conf.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -61,15 +64,7 @@ WSGI_APPLICATION = 'pixiv_rank.wsgi.application'
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pixiv',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'CHARSET': 'utf8',
-    }
+    'default': conf.DATABASE_DEFAULT,
 }
 
 # Internationalization
