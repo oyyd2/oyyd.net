@@ -9,8 +9,9 @@ def requestData(date):
     rank_date = tripDate(date)
     arr = []
     targetUrl = "http://www.pixiv.net/ranking.php?mode=daily&date=%s" % rank_date;
-    d = pq(urlopen(targetUrl).read())
-
+    req = urlopen(targetUrl)
+    content = unicode(req.read(),'utf-8')
+    d = pq(content)
     for i in range(1,rank_range+1):  
         element = d.find('section[data-rank="%d"]' % i)        
         # If the pic is unaccessible, return.
