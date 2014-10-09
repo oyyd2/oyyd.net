@@ -1,0 +1,53 @@
+{
+  "songs":[
+    {
+      "name":"preset",
+      "click":15490
+    },
+    {
+      "name":"preset(REMIX)",
+      "click":6106
+    },
+    {
+      "name":"AWAODORI",
+      "click":28807
+    },
+    {
+      "name":"ZOMBIE MAKER",
+      "click":10672
+    },
+    {
+      "name":"Mirage Dragon",
+      "click":7168
+    },
+    {
+      "name":"ADAM",
+      "click":16749
+    },
+    {
+      "name":"EYE",
+      "click":19412
+    },
+    {
+      "name":"MACARON",
+      "click":29271
+    },
+    {
+      "name":"Omega(REMIX)",
+      "click":39827
+    },
+    {
+      "name":"Omega",
+      "click":35925
+    },
+    {
+      "name":"Eden",
+      "click":79746
+    },
+    {
+      "name":"Babel",
+      "click":50206
+    }
+  ]
+
+}

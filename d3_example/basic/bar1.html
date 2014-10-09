@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>bar1</title>
+    <meta charset='UTF-8'>
+    <script type="text/javascript" src="/static/lib/d3.min.js"></script>
+    <script type="text/javascript" src="/static/lib/angular.min.js"></script>
+  </head>
+  <body ng-app="bar" ng-controller="barController">
+    <p role="data-shown">
+      <span ng-repeat='item in data track by $index'>{{item}} </span>
+    </p>
+    <div>
+      <button type="button" ng-click="pushData()">push data</button>
+      <input type="text" ng-model="newData"/>
+      <button type="button" ng-click="data.pop()">pop data</button>      
+    </div>
+    <svg role="bar-container" width="500" height="500">
+    </svg>
+    <script type="text/javascript">      
+      var bar = angular.module('bar',[]);
+      bar.controller('barController',['$scope',function($s){
+        var ground = null;
+        $s.data = [10,20,30,50,110,0,22]; 
+        initBar($s.data);        
+        $s.newData = 0;
+        $s.pushData = function(){
+          $s.data.push($s.newData);
+        };
+        $s.$watchCollection('data',function(data){
+          updateBar(ground,data);
+        });
+        function initBar(data){
+          var container = d3.select("[role='bar-container']");
+          ground = container.append('svg:g')
+            .attr('width',400)
+            .attr('height',400);
+          updateBar(ground,data);
+        }
+        function updateBar(ground,data){
+          var rects = ground.selectAll('rect').data(data);
+          rects.exit()
+            .remove();
+          rects.enter()
+            .append('svg:rect')
+              .attr('fill','#0000ff')
+              .attr('stroke-width','2')
+              .attr('stroke','#000000')
+              .attr('width',10)
+              .attr('height',function(d,i){
+                return d;
+              })
+              .attr('x',function(d,i){
+                return i*20;
+              })
+              .attr('y',function(d,i){
+                return 150-this.getAttribute('height');
+              });  
+        }
+      }]);      
+    </script>
+  </body>
+</html>

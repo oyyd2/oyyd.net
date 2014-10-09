@@ -1,0 +1,16 @@
+{
+  "name":"source_node",
+  "children":[
+    {
+      "name":"data_leaf",
+      "size":60
+    },
+    {
+      "name":"sub_source",
+      "children":[
+        {"name":"sub_source_leaf1","size":10},
+        {"name":"sub_source_leaf2","size":30}
+      ]
+    }
+  ]
+}
