@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Spectrogram</title>    
+    <meta charset="utf-8"/>
+    <script type="text/javascript" src="/static/lib/d3.min.js"></script>
+    <script type="text/javascript" src="/static/lib/angular.min.js"></script>    
+    <link rel="stylesheet" href="style.css"/>
+  </head>
+  <body>
+    <section class="calibration" role="calibration">
+      <svg width="120" height="17">
+        <rect role="calibrationItem" class='item q0-6' width="17" height="17"></rect>
+        <rect role="calibrationItem" class='item q1-6' width="17" height="17"></rect>
+        <rect role="calibrationItem" class='item q2-6' width="17" height="17"></rect>
+        <rect role="calibrationItem" class='item q3-6' width="17" height="17"></rect>
+        <rect role="calibrationItem" class='item q4-6' width="17" height="17"></rect>
+        <rect role="calibrationItem" class='item q5-6' width="17" height="17"></rect>        
+      </svg>              
+      <div role="description" class="description">
+        <label>Less</label>
+        <label>More</label>
+      </div>
+    </section>
+    <svg role="spectrogram" class="spectrogram"></svg>
+    <script type="text/javascript">
+      var itemSize = 18,
+        cellSize = itemSize-1,
+        width = 800,
+        height = 800,
+        margin = {top:20,right:20,bottom:20,left:25},
+        hourFormat = d3.time.format('%H'),
+        dayFormat = d3.time.format('%j'),
+        timeFormat = d3.time.format('%Y-%m-%dT%X'),
+        timeLableFormat = d3.time.format('%m-%d'),
+        colorIndex = d3.scale.quantize()
+          .domain([0,500])
+          .range([0,1,2,3,4,5]),
+        xAxisScale = d3.time.scale(),
+        xAxis = d3.svg.axis()
+          .orient('top')
+          .ticks(d3.time.days,3)
+          .tickFormat(timeLableFormat),
+        yAxisScale = d3.scale.linear()
+          .range([0,itemSize*24])
+          .domain([0,24]),
+        yAxis = d3.svg.axis()
+          .orient('left')
+          .ticks(5)
+          .scale(yAxisScale);
+
+      initCalibration();
+
+      var svg = d3.select('[role="spectrogram"]');
+
+      var spectrogram = svg
+        .attr('width',width)
+        .attr('height',height)
+      .append('g')
+        .attr('width',width-margin.left-margin.right)
+        .attr('height',height-margin.top-margin.bottom)
+        .attr('transform','translate('+margin.left+','+margin.top+')');
+
+      //Promise that data includes 24 hours pm2.5 value of some days.
+      d3.json('data/test_device_pm25.json',function(err,data){
+        var startDate = null,
+          endDate = null,
+          data = data.data,
+          dayOffset = 0;
+
+        var delta = endDate - startDate;
+
+        data.forEach(function(valueObj){
+          var date = timeFormat.parse(valueObj['timestamp']);
+          valueObj['date'] = date;
+
+          if(!Boolean(startDate)||startDate.valueOf()>date.valueOf()){
+            startDate = date;
+          }
+          if(!Boolean(endDate)||endDate.valueOf()<date.valueOf()){
+            endDate = date;
+          }
+        });
+
+        // xAxisScale.range([0,800]);
+        xAxisScale.range([0,itemSize*(dayFormat(endDate)-dayFormat(startDate)+1)]);
+        xAxisScale.domain([startDate,endDate]);
+
+        xAxis.scale(xAxisScale);
+        svg.append('g')
+          .attr('transform','translate('+margin.left+','+margin.top+')')
+          .attr('class','x axis')
+          .call(xAxis);
+
+        svg.append('g')
+          .attr('transform','translate('+margin.left+','+margin.top+')')
+          .attr('class','y axis')
+          .call(yAxis);
+
+        dayOffset = dayFormat(startDate);
+
+        var rect = spectrogram.selectAll('rect')
+          .data(data)
+        .enter().append('rect')
+          .attr('width',cellSize)
+          .attr('height',cellSize)
+          .attr('x',function(d){
+            return itemSize*(dayFormat(d.date)-dayOffset);
+          })
+          .attr('y',function(d){            
+            return hourFormat(d.date)*itemSize;
+          })
+          .attr('class',function(d){
+            if(d.value['PM2.5']<0){
+              return 'item';
+            }
+            return 'item q'+colorIndex(d.value['PM2.5'])+'-6';
+          });
+
+          rect.append('title')
+            .text(function(d){
+              if(d.value['PM2.5']>0){
+                return timeLableFormat(d.date)+' '+d.value['PM2.5'];                
+              }
+            });
+
+        console.log(startDate,',',endDate);
+        console.log(data);
+      });
+
+      function initCalibration(){
+        var calibrationElement = document.getElementsByClassName('calibration'),
+          itemElements = document.getElementsByClassName('item');
+
+        var forEach = [].forEach;
+        forEach.call(itemElements,function(itemElement,index){
+          itemElement.setAttribute('x',index*itemSize);
+        });
+      }
+    </script>
+  </body>
+</html>
