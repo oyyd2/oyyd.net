@@ -1,0 +1,18 @@
+body{font-family: }
+
+.item{fill:#ffffff;}
+.item.q0-6{fill:#f6faaa;}
+.item.q1-6{fill:#FEE08B;}
+.item.q2-6{fill:#FDAE61;}
+.item.q3-6{fill:#F46D43;}
+.item.q4-6{fill:#D53E4F;}
+.item.q5-6{fill:#9E0142;}
+
+.calibration{margin-bottom: 15px;width:400px;}
+.calibration .group{display: inline-block;}
+.calibration .description{width:108px;}
+.calibration .description>label:last-child{float:right;}
+.calibration>.display_control{float:right;}
+
+.spectrogram .axis path{display: none;}
+.spectrogram .axis line{fill: none;stroke: #000;shape-rendering: crispEdges;}
