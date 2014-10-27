@@ -1,0 +1,12 @@
+body{font-family:arial, 'Hiragino Sans GB',Tahoma, Arial, Helvetica, STHeiti;font-size: 14px;}
+.calibration{margin-bottom: 15px;width:400px;}
+.calibration .group{display: inline-block;}
+.calibration .description{width:108px;}
+.calibration .description>label:last-child{float:right;}
+.calibration>.display_control{float:right;}
+.calibration>.display_control label{vertical-align: top;}
+.calibration>.display_control input[type='radio']{cursor: pointer;}
+
+.spectrogram .axis path{display: none;}
+.spectrogram .axis line{fill: none;stroke: #000;shape-rendering: crispEdges;}
+.spectrogram .axis text{font-size: 12px}

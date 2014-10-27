@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Spectrogram</title>    
+    <meta charset="utf-8"/>
+    <script type="text/javascript" src="/static/lib/d3.min.js"></script>
+    <script type="text/javascript" src="/static/lib/angular.min.js"></script>    
+    <link rel="stylesheet" href="style.css"/>
+  </head>
+  <body>
+    <section class="calibration" role="calibration">
+      <div class="group" role="example">
+        <svg width="120" height="17">
+        </svg>
+        <div role="description" class="description">
+          <label>Less</label>
+          <label>More</label>
+        </div>        
+      </div>
+      <div role="toggleDisplay" class="display_control">
+        <div>
+          <input type="radio" name="displayType" checked onclick="rerenderColor()"/>
+          <label>count</label>
+        </div>
+        <div>
+          <input type="radio" name="displayType" onclick="rerenderColor()"/>
+          <label>daily</label> 
+        </div>
+      </div>
+    </section>
+    <svg role="spectrogram" class="spectrogram"></svg>
+
+    <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>
